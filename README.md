@@ -5,7 +5,7 @@ My first and a simple PowerShell script which can be used to XOR encrypt your sh
 ## Installation and Usage:
   ### Installation : 
   1. Clone the repository using : `git clone https://github.com/Vedant-Bhalgama/PSShellcodeCrypter`
-  2. Open up Powershell and import the script in it using : `Import-Module .\ssencrypt.ps1`
+  2. Open up Powershell and import the script in it using : `Import-Module .\sscrypt.ps1`
 
   ### Usage :
   1. Using `XOR-Encrypt` :
