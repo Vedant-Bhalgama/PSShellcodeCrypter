@@ -67,16 +67,23 @@ Function XOR-Decrypt {
     Specify the Encrypted shellcode in an array to encrypt
 
     .PARAMETER Key
-    Specify the key which will be used for XOR decrypting the shellcode 
+    Specify the key which will be used for XOR decrypting the shellcode
+
+    .PARAMETER WriteToFile
+    If you wish to output the decrypted shellcode to a file, then specify the WriteToFile parameter along with the filename (Output will be in C Usable format)
 
     .EXAMPLE 
     PS> XOR-Decrypt 0xBD,0xD2,0xFD secretkee@123 
 
+    PS> XOR-Decrypt 0xBD,0xD2,0xFD secretkee@123 test.out
+
 #>
 
     [CmdletBinding()]
-    param([Parameter(Mandatory=$True)]$EncryptedShellcode, [Parameter(Mandatory=$True)]$Key)
-    
+    param([Parameter(Mandatory=$True)]$EncryptedShellcode, [Parameter(Mandatory=$True)]$Key, $WriteToFile)
+
+    $DecryptedShellcodeLength = $EncryptedShellcode.Length
+
     $XORDecryptedShellcode = @()
     $FormattedDecryptedShellcode = @()
 
@@ -89,6 +96,16 @@ Function XOR-Decrypt {
     }
 
     $formatted = $FormattedDecryptedShellcode -join ","
-    return "($formatted)"
+    
+    if ($WriteToFile) {
+        $write_format = @"
+char shellcode[$DecryptedShellcodeLength] = {$formatted};
+"@
+        Set-Content -Path $WriteToFile -Value $write_format
+        
+    }
+    else {
+        return "($formatted)"
+    }
 
 }
